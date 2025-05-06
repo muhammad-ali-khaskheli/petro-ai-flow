@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { Database, Gauge, ChartBar, Settings, OilBarrel, Server } from "lucide-react";
+import { Database, Gauge, ChartBar, Settings, Droplet, Server } from "lucide-react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -26,7 +26,7 @@ function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className="flex items-center gap-2 px-4 py-3">
-        <OilBarrel className="h-6 w-6 text-petroleum-400" />
+        <Droplet className="h-6 w-6 text-petroleum-400" />
         <span className="font-bold text-lg">PetroAI Flow</span>
       </SidebarHeader>
       <SidebarContent>
@@ -45,7 +45,7 @@ function AppSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
                   <a href="/wells">
-                    <OilBarrel />
+                    <Droplet />
                     <span>Wells</span>
                   </a>
                 </SidebarMenuButton>
