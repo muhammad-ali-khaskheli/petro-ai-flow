@@ -43,6 +43,19 @@
     --sidebar-accent-foreground: 210 20% 90%;
     --sidebar-border: 214 30% 25%;
     --sidebar-ring: 200 100% 40%;
+    
+    /* Petroleum themed colors */
+    --petroleum-50: 200 30% 95%;
+    --petroleum-100: 200 25% 90%;
+    --petroleum-200: 200 25% 80%;
+    --petroleum-300: 200 25% 70%;
+    --petroleum-400: 200 25% 60%;
+    --petroleum-500: 200 25% 50%;
+    --petroleum-600: 200 30% 40%;
+    --petroleum-700: 200 35% 30%;
+    --petroleum-800: 200 40% 20%;
+    --petroleum-900: 200 45% 10%;
+    --petroleum-950: 200 50% 5%;
   }
 
   .dark {
@@ -97,5 +110,26 @@
   
   .stats-label {
     @apply text-sm text-muted-foreground mt-1;
+  }
+  
+  /* Petroleum themed utility classes */
+  .bg-petroleum-primary {
+    @apply bg-[#0b4d6c];
+  }
+  
+  .text-petroleum-primary {
+    @apply text-[#0b4d6c];
+  }
+  
+  .border-petroleum-primary {
+    @apply border-[#0b4d6c];
+  }
+  
+  .bg-petroleum-secondary {
+    @apply bg-[#136f8a];
+  }
+  
+  .text-petroleum-secondary {
+    @apply text-[#136f8a];
   }
 }
