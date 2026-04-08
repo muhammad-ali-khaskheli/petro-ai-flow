@@ -13,7 +13,6 @@ const Index = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const { toast } = useToast();
 
-  // Simulate AI analysis trigger
   const runAIAnalysis = () => {
     setIsAnalyzing(true);
     toast({
@@ -22,7 +21,6 @@ const Index = () => {
       duration: 2000,
     });
     
-    // Simulate analysis completion
     setTimeout(() => {
       setIsAnalyzing(false);
       toast({
@@ -36,13 +34,16 @@ const Index = () => {
   return (
     <Layout>
       <div className="space-y-6">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold">Production Dashboard</h1>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div>
+            <h1 className="text-2xl font-bold text-foreground">Production Dashboard</h1>
+            <p className="text-sm text-muted-foreground">Real-time overview of all field operations</p>
+          </div>
           <div className="flex gap-2">
             <Button 
               onClick={runAIAnalysis} 
               disabled={isAnalyzing}
-              className="bg-petroleum-600 hover:bg-petroleum-700"
+              className="bg-primary hover:bg-primary/90"
             >
               <Brain className="mr-2 h-4 w-4" />
               {isAnalyzing ? "Analyzing..." : "Run AI Analysis"}
