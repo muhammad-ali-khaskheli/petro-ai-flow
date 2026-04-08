@@ -1,63 +1,85 @@
 
-import { useState } from "react";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { useLocation } from "react-router-dom";
+import { NavLink } from "@/components/NavLink";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+  useSidebar,
+} from "@/components/ui/sidebar";
 import { Database, Gauge, ChartBar, Settings, Droplet, Server } from "lucide-react";
+
+const productionLinks = [
+  { title: "Dashboard", url: "/", icon: Gauge },
+  { title: "Wells", url: "/wells", icon: Droplet },
+  { title: "Analytics", url: "/analytics", icon: ChartBar },
+];
+
+const systemLinks = [
+  { title: "Data Sources", url: "/data", icon: Database },
+  { title: "Equipment", url: "/equipment", icon: Server },
+  { title: "Settings", url: "/settings", icon: Settings },
+];
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full">
         <AppSidebar />
-        <main className="flex-1">
-          <div className="container py-4">
-            <div className="flex items-center justify-between mb-6">
-              <h1 className="text-2xl font-bold">PetroAI Flow</h1>
-              <SidebarTrigger className="md:hidden" />
+        <div className="flex-1 flex flex-col">
+          <header className="h-14 flex items-center gap-3 border-b border-border bg-card px-4 shrink-0">
+            <SidebarTrigger />
+            <h1 className="text-lg font-bold text-foreground">PetroAI Flow</h1>
+          </header>
+          <main className="flex-1 overflow-auto">
+            <div className="container py-6">
+              {children}
             </div>
-            {children}
-          </div>
-        </main>
+          </main>
+        </div>
       </div>
     </SidebarProvider>
   );
 }
 
 function AppSidebar() {
+  const location = useLocation();
+
   return (
-    <Sidebar>
+    <Sidebar collapsible="icon">
       <SidebarHeader className="flex items-center gap-2 px-4 py-3">
-        <Droplet className="h-6 w-6 text-petroleum-400" />
-        <span className="font-bold text-lg">PetroAI Flow</span>
+        <Droplet className="h-6 w-6 text-primary" />
+        <span className="font-bold text-lg">PetroAI</span>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Production</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="/">
-                    <Gauge />
-                    <span>Dashboard</span>
-                  </a>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="/wells">
-                    <Droplet />
-                    <span>Wells</span>
-                  </a>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="/analytics">
-                    <ChartBar />
-                    <span>Analytics</span>
-                  </a>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              {productionLinks.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink
+                      to={item.url}
+                      end={item.url === "/"}
+                      className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-sidebar-accent"
+                      activeClassName="bg-sidebar-accent text-sidebar-primary font-medium"
+                    >
+                      <item.icon className="h-4 w-4" />
+                      <span>{item.title}</span>
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -65,30 +87,20 @@ function AppSidebar() {
           <SidebarGroupLabel>System</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="/data">
-                    <Database />
-                    <span>Data Sources</span>
-                  </a>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="/equipment">
-                    <Server />
-                    <span>Equipment</span>
-                  </a>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="/settings">
-                    <Settings />
-                    <span>Settings</span>
-                  </a>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              {systemLinks.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink
+                      to={item.url}
+                      className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-sidebar-accent"
+                      activeClassName="bg-sidebar-accent text-sidebar-primary font-medium"
+                    >
+                      <item.icon className="h-4 w-4" />
+                      <span>{item.title}</span>
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
